@@ -215,29 +215,18 @@ ld2 |>
 ```{r}
 #| title: Atención estudiantil USAER
 
-ld2 |>  
-  # Filtrar solo los datos donde 'unidad' es 'Estudiantes'
-  filter(unidad == "Estudiantes") |>  
-  # Resumir los datos para calcular el valor promedio de 'value' por 'educacion' y 'ciclo'
+ld2 |>
+  filter(unidad == "Estudiantes") |> 
   group_by(educacion, Ciclo) |>  
-  summarise(value_mean = mean(value, na.rm = TRUE), .groups = "drop") |>  
-  # Reorganizar las filas antes de pasar a gt() para asegurar que las categorías de educación estén en orden
-  arrange(factor(educacion, levels = c("Inicial", "Preescolar", "Primaria", "Secundaria"))) |>  
-  # Reorganizar los datos para tener ciclos '1' y '2' en columnas separadas
-  pivot_wider(names_from = Ciclo, values_from = value_mean, names_prefix = "") |>  
-  # Crear la tabla con gt
-  gt() |>  
-  # Formatear las columnas de ciclo como números con decimales
-  fmt_number(
-    columns = c("1", "2"),
-    decimals = 0
-  ) |>  
-  # Cambiar los nombres de las columnas a 2018-2019 y 2019-2020
-  cols_label(
-    `1` = "2018-2019",
-    `2` = "2019-2020"
-  ) |>  
-  # Eliminar el nombre de la primera columna
+  summarise(value_mean = mean(value, na.rm = TRUE), .groups = "drop") |> 
+  arrange(factor(educacion, levels = c("Inicial", "Preescolar", "Primaria", 
+                                       "Secundaria"))) |>
+  pivot_wider(names_from = Ciclo, values_from = value_mean, 
+              names_prefix = "") |>  
+  gt() |> 
+  fmt_number(columns = c("1", "2"),
+             decimals = 0) |>
+  cols_label(`1` = "2018-2019",  `2` = "2019-2020") |>
   cols_label(educacion = "")
 ```
 
@@ -320,34 +309,11 @@ ld2 %>%
         axis.text.x = element_text(size = 10, color = 'black'),
         axis.text.y = element_text(size = 10, color = 'black'),
         legend.position = 'bottom')
-
 ```
 
 # Nacional {orientation="columns"}
 
 ## Column {width="60%"}
-
-```{r}
-#| label: Escuelas USAER y Estudiantes con NEE
-#| results: hide
-
-ld_v <- ld |>
-  filter(delivery_method == "Vaginal")
-
-n_births_v <- nrow(ld_v)
-
-p_preterm_v <- ld_v |>
-  count(term) |>
-  mutate(p = n / sum(n)) |>
-  filter(term == "Pre-term") |>
-  pull(p)
-
-p_preterm_color_v <- case_when(
-  between(p_preterm_v, params$us_preterm_rate, params$us_preterm_rate + params$threshold_diff) ~ "warning",
-  p_preterm_v > params$us_preterm_rate + params$threshold_diff ~ "danger",
-  .default = "light"
-  )
-```
 
 ### Row {height="80%" .tabset}
 
