@@ -78,16 +78,16 @@ ld <- ld |>
 
 #  {.sidebar}
 
-USAER potencia su incidencia atendiendo:
+USAER atiende:
 
 |                                  |                     |
 |----------------------------------|---------------------|
 | **Escuelas de Educación básica** | 14.1\%              |
-| **Escuelas con alumnos en BAP**  | 37\%                |
+| **Escuelas con estudiantes con barreras para el aprendizaje y la participación** | 37\%                |
 
 ------------------------------------------------------------------------
 
-Para el ciclo escolar 2019-2020, la USAER ya se encontraba en 4,646 planteles:
+Para el ciclo escolar 2019-2020, la USAER ya se encontraba en 8,813 planteles:
 
 |                                    |          |
 |------------------------------------|----------|
@@ -105,7 +105,7 @@ Para el ciclo escolar 2019-2020, la USAER ya se encontraba en 4,646 planteles:
 Este es un reporte en forma de resumen de USAER. La información presentada proviene [del informe USAER disponible en línea](https://www.mejoredu.gob.mx/publicaciones/informe-de-resultados/la-usaer-en-voz-de-sus-docentes).
 :::
 
-# USAER
+# Inicio
 
 ## Información
 
@@ -114,7 +114,9 @@ Este es un reporte en forma de resumen de USAER. La información presentada prov
 #### ¿Qué es USAER?
 ::: card
 ::: card-body
-[USAER](https://www.gob.mx/mejoredu/prensa/mejoredu-publica-un-estudio-diagnostico-sobre-los-servicios-de-apoyo-a-la-educacion-regular-usaer-315470?idiom=es) es una instancia técnico-operativa de educación especial encargada de proporcionar apoyos técnicos, metodológicos y conceptuales a planteles de educación básica, orientados al desarrollo de escuelas y aulas inclusivas, a partir de la disminución o eliminación de barreras para el aprendizaje y participación (BAP).
+Este Tablero es producto de los esfuerzos de la Comisión Nacional para la Mejora Continua de la Educación (Mejoredu) para reportar los resultados de la <a href="info_usaer.pdf" target="_blank" rel="noopener noreferrer">Evaluación Diagnóstica del proceso de atención en escuelas primarias por USAER</a>.
+
+[USAER](https://www.gob.mx/mejoredu/prensa/mejoredu-publica-un-estudio-diagnostico-sobre-los-servicios-de-apoyo-a-la-educacion-regular-usaer-315470?idiom=es){target="_blank"} es una instancia técnico-operativa de educación especial encargada de proporcionar apoyos técnicos, metodológicos y conceptuales a planteles de educación básica, orientados al desarrollo de escuelas y aulas inclusivas, a partir de la disminución o eliminación de barreras para el aprendizaje y participación (BAP).
 
 Todas las intervenciones de USAER, se basan en tres tipos de interacciones ideales:
 
@@ -123,20 +125,16 @@ Todas las intervenciones de USAER, se basan en tres tipos de interacciones ideal
 > 2. _Corresponsables_, entendidas como el compromiso compartido entre la USAER y los planteles, para eliminar las BAP.
 > 3. _Participativas_, es decir, los procesos de atención que integran a las familias de las y los estudiantes.
 
-<div style="text-align: center;">
-  <img src="images/inclusive.png" width="40%" height="90%"/>
+<div style="display: flex; flex-direction: column; align-items: center;">
+  <img src="images/inclusive.png" width="30%" height="90%"/>
+  <p style="font-size: 12px; color: gray; margin-top: 5px;">Fotografía: Arturo Ayala.</p>
 </div>
 
-Para mayor información de USAER, <a href="info_usaer.pdf" target="_blank" rel="noopener noreferrer">¡véase esta infografía!</a>
 
 :::
 :::
 
-#### Acerca de este tablero
-Toda la información contenida en este tablero fue retomada del estudio [La USAER en voz de sus docentes. Evaluación diagnóstica del proceso de atención en escuelas primarias](https://www.mejoredu.gob.mx/publicaciones/informe-de-resultados/la-usaer-en-voz-de-sus-docentes), publicado en 2022 por [Mejoredu](https://www.mejoredu.gob.mx). Para mayor información sobre USAER y resultados de este estudio, <a href="info_usaer.pdf" target="_blank" rel="noopener noreferrer">¡véase esta infografía!</a>
-
-
-# Inicio
+# USAER
 
 ```{r}
 #| label: all-values
@@ -311,7 +309,7 @@ ld2 %>%
         legend.position = 'bottom')
 ```
 
-# Nacional {orientation="columns"}
+# Primarias {orientation="columns"}
 
 ## Column {width="60%"}
 
@@ -319,7 +317,7 @@ ld2 %>%
 
 ```{r}
 #| label: example-plot1
-#| title: "USAER por Primarias"
+#| title: "Primarias con USAER"
 #| fig-width: 10
 #| fig-height: 15
 #| fig-asp: 0.7
@@ -359,7 +357,7 @@ ld4 %>%
 
 ```{r}
 #| label: example-plot2
-#| title: "USAER y alumnos NEE"
+#| title: "Primarias con estudiantes con BAP"
 #| fig-width: 10
 #| fig-height: 15
 #| fig-asp: 0.7
@@ -370,14 +368,14 @@ ld5 %>%
                color = "black") +
   geom_point(aes(y = v1, color = "V1"), size = 3) +
   geom_point(aes(y = v4, color = "V4"), size = 3) +
-  ggtitle("Relación entre escuelas primarias y planteles con alumnos con NEE",
+  ggtitle("Relación entre escuelas primarias y planteles con alumnos con BAP",
           subtitle = "Diferencia absoluta por estado de la República") +
   labs(x = "Entidades federativas", y = "# Absoluto", colour = NULL,
        caption = "Fuente: elaboración con base en datos de USAER (2022).\nNota: La distancia entre los puntos indica la diferencia absoluta entre escuelas primarias por entidad federativa, y los planteles atendidos por USAER\nque cuentan con al menos un(a) alumno(a) con necesidades educativas especiales.") +
   scale_color_manual(
     values = c("V1" = "#9D2449", "V4" = "#285C4D"),
     labels = c("V1" = "Total de Primarias", 
-               "V4" = "Escuelas que atienden al menos un estudiante con NEE")) +
+               "V4" = "Escuelas que atienden al menos un estudiante con BAP")) +
   theme_apa() +
   theme(plot.title = element_text(size = 14, color = 'black', face = 'bold'),
         plot.subtitle = element_text(size = 14, color = 'black', face = 'bold'),
@@ -393,7 +391,7 @@ ld5 %>%
 
 ```{r}
 #| label: example-plot3
-#| title: "Escuelas USAER"
+#| title: "Primarias USAER y estudiantes con BAP"
 #| fig-width: 10
 #| fig-height: 15
 #| fig-asp: 0.7
@@ -410,7 +408,7 @@ ld3 %>%
   scale_color_manual(
     values = c("V3" = "#9D2449", "V5" = "#285C4D"),
     labels = c("V3" = "Primarias públicas con USAER (%)", 
-               "V5" = "Primarias públicas con USAER y estudiantes NEE (%)")) +
+               "V5" = "Primarias públicas con USAER y estudiantes BAP (%)")) +
   theme_apa() +
   theme(plot.title = element_text(size = 14, color = 'black', face = 'bold'),
         plot.subtitle = element_text(size = 14, color = 'black', face = 'bold'),
@@ -424,7 +422,7 @@ ld3 %>%
         legend.position = 'bottom')
 ```
 
-# Alumnos {orientation="columns"}
+# Estudiantes {orientation="columns"}
 
 ## Column {width="60%"}
 
@@ -432,7 +430,7 @@ ld3 %>%
 
 ```{r}
 #| content: valuebox
-#| title: "Alumnos (2018-2019)"
+#| title: "Estudiantes (2018-2019)"
 
 list(
   icon = "backpack3",
@@ -443,7 +441,7 @@ list(
 
 ```{r}
 #| component: valuebox
-#| title: "Alumnos (2019-2020)"
+#| title: "Estudiantes (2019-2020)"
 
 list(
   icon = "backpack4",
@@ -533,7 +531,7 @@ ld7 %>%
 
 ```{r}
 #| label: example-plot6
-#| title: "Estudiantes con NEE"
+#| title: "Estudiantes con BAP"
 #| fig-width: 10
 #| fig-height: 15
 #| fig-asp: 0.7
