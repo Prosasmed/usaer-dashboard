@@ -428,28 +428,6 @@ ld3 %>%
 
 ## Column {width="60%"}
 
-```{r}
-#| label: cesarean-values
-#| results: hide
-
-ld_c <- ld |>
-  filter(delivery_method == "Cesarean")
-
-n_births_c <- nrow(ld_c)
-
-p_preterm_c <- ld_c |>
-  count(term) |>
-  mutate(p = n / sum(n)) |>
-  filter(term == "Pre-term") |>
-  pull(p)
-
-p_preterm_color_c <- case_when(
-  between(p_preterm_c, params$us_preterm_rate, params$us_preterm_rate + params$threshold_diff) ~ "warning",
-  p_preterm_c > params$us_preterm_rate + params$threshold_diff ~ "danger",
-  .default = "light"
-  )
-```
-
 ### Row {height="20%"}
 
 ```{r}
