@@ -136,7 +136,7 @@ Para mayor información de USAER, <a href="info_usaer.pdf" target="_blank" rel="
 Toda la información contenida en este tablero fue retomada del estudio [La USAER en voz de sus docentes. Evaluación diagnóstica del proceso de atención en escuelas primarias](https://www.mejoredu.gob.mx/publicaciones/informe-de-resultados/la-usaer-en-voz-de-sus-docentes), publicado en 2022 por [Mejoredu](https://www.mejoredu.gob.mx). Para mayor información sobre USAER y resultados de este estudio, <a href="info_usaer.pdf" target="_blank" rel="noopener noreferrer">¡véase esta infografía!</a>
 
 
-# All
+# Inicio
 
 ```{r}
 #| label: all-values
