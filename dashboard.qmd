@@ -150,7 +150,7 @@ growth <- 0.04
 
 ```
 
-## Row {height="15%"}
+## Row {height="20%"}
 
 ```{r}
 #| content: valuebox
