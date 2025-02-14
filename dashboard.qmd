@@ -51,6 +51,20 @@ ld8 <- read_excel("data/ld_8.xlsx")
 
 ld8 <-
   as.tibble(ld8)
+
+ld7 <- 
+  ld7 %>%
+  group_by(discapacidad) %>%
+  mutate(prop = value / sum(value) * 100) %>%
+  ungroup()
+
+ld7 <-
+  ld7 |>
+  arrange(nivel, discapacidad) |>
+  select(nivel, discapacidad, value, prop)
+
+ld7_filtrado <- ld7 |> 
+  filter(nivel != "Inicial")
 ```
 
 ```{r}
@@ -91,9 +105,9 @@ Para el ciclo escolar 2019-2020, la USAER ya se encontraba en 8,813 planteles:
 
 |                                    |          |
 |------------------------------------|----------|
-| **Alumnos atendidos 2018-2019**    |  519,494 |
+| **Estudiantes atendidos 2018-2019**    |  519,494 |
 | **Centros escolares 2018-2019**.   |  8,424   |
-| **Alumnos atendidos 2019-2020**    |  540,930 |
+| **Estudiantes atendidos 2019-2020**    |  540,930 |
 | **Centros escolares 2019-2020**    |  8,813   |
 | **Incremento de atención**         |  4.13\%  |
 
@@ -368,10 +382,10 @@ ld5 %>%
                color = "black") +
   geom_point(aes(y = v1, color = "V1"), size = 3) +
   geom_point(aes(y = v4, color = "V4"), size = 3) +
-  ggtitle("Relación entre escuelas primarias y planteles con alumnos con BAP",
+  ggtitle("Relación entre escuelas primarias y planteles con estudiantes con BAP",
           subtitle = "Diferencia absoluta por estado de la República") +
   labs(x = "Entidades federativas", y = "# Absoluto", colour = NULL,
-       caption = "Fuente: elaboración con base en datos de USAER (2022).\nNota: La distancia entre los puntos indica la diferencia absoluta entre escuelas primarias por entidad federativa, y los planteles atendidos por USAER\nque cuentan con al menos un(a) alumno(a) con necesidades educativas especiales.") +
+       caption = "Fuente: elaboración con base en datos de USAER (2022).\nNota: La distancia entre los puntos indica la diferencia absoluta entre escuelas primarias por entidad federativa, y los planteles atendidos por USAER\nque cuentan con al menos un(a) estudiante con necesidades educativas especiales.") +
   scale_color_manual(
     values = c("V1" = "#9D2449", "V4" = "#285C4D"),
     labels = c("V1" = "Total de Primarias", 
@@ -401,7 +415,7 @@ ld3 %>%
   geom_segment(aes(xend = estado, y = v3, yend = v5), color = "black") +
   geom_point(aes(y = v3,  color = "V3"),  size = 3) +
   geom_point(aes(y = v5,  color = "V5"),  size = 3) +
-  ggtitle("Primarias USAER y la atención de alumnos con necesidades educativas especiales:",
+  ggtitle("Primarias USAER y la atención de estudiantes con necesidades educativas especiales:",
           subtitle = "Diferencia entre proporciones de atención.") +
   labs(x = 'Entidades federativas', y = 'Porcentaje', colour = NULL,
        caption = 'Fuente: elaboración con base en datos de USAER (2022).\nNota: la diferencia representa la distancia en puntos porcentuales entre primarias generales públicas USAER, y aquellas que atienden al menos un estu-\ndiante con necesidades educativas especiales.') +
@@ -507,26 +521,25 @@ ld6 %>%
 #| fig-height: 15
 #| fig-asp: 0.7
 
-# Considerar cambiar "BAP's por NEE's"
-
-ld7 %>%
-  ggplot(aes(x = discapacidad, y = value, fill = nivel)) +
-  geom_bar(stat = "identity") +
-  scale_fill_manual(values = c("#D4C19C", "#13322B", "#B38E5D", "#621132")) +
-  scale_y_continuous(labels = scales::label_number(big.mark = ",", decimal.mark = ".")) +
-  ggtitle("Estudiantes atendidos según su condición",
-          subtitle = "Ciclo escolar 2019-2020, por nivel educativo") +
-  labs(x = NULL, y = NULL) +
-  theme_apa() +
+ld7_filtrado |>
+  ggplot(aes(x = nivel, y = prop, fill = nivel)) +
+  geom_bar(position = 'dodge', stat = 'identity') +
+  geom_text(aes(label = round(prop, 2)), 
+            vjust = 1.5, color = "white", size = 4, fontface = "bold") +  # Etiquetas dentro de las barras
+  scale_fill_manual(values = c("#D4C19C", "#13322B", "#B38E5D", "#621132")) +  # Colores personalizados
+  ggtitle('Estudiantes atendidos según BAP enfrentada',
+          subtitle = 'Ciclo escolar 2019-2020, por nivel educativo') +
+  labs(x = 'Nivel educativo', y = 'Proporción',
+       caption = 'Fuente: elaboración con base en datos de USAER (2022)\nNota: Las proporciones se calculan según el nivel educativo, y la cantidad de estudiantes dentro de cada BAP.') +
+  facet_wrap(~ discapacidad) +
+  theme_apa(legend.pos = 'bottom') +
   theme(plot.title = element_text(size = 14, color = 'black', face = 'bold'),
         plot.subtitle = element_text(size = 14, color = 'black', face = 'bold'),
-        legend.text = element_text(size = 12, color = 'black'),
         plot.caption = element_text(size = 10, color = 'black', hjust = 0),
         axis.title.x = element_text(size = 12, color = 'black'),
         axis.title.y = element_text(size = 12, color = 'black'),
         axis.text.x = element_text(size = 10, color = 'black'),
-        axis.text.y = element_text(size = 10, color = 'black'),
-        legend.position = 'bottom')
+        axis.text.y = element_text(size = 10, color = 'black'))
 ```
 
 ```{r}
